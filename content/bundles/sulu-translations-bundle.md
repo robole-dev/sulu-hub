@@ -7,11 +7,11 @@ shortDescription: >-
 license: MIT
 githubMaintainer: Tailr
 githubLink: 'https://github.com/tailrdigital/sulu-translations-bundle'
-githubAvatar: ''
-githubStars: 0
+githubAvatar: 'https://avatars.githubusercontent.com/u/124871176?v=4'
+githubStars: 6
 totalDownloads: 5158
-targetSuluVersion: ''
-lastRepositoryUpdate: '1970-01-01T00:00:00.000Z'
+targetSuluVersion: ^2.5
+lastRepositoryUpdate: '2025-09-19T09:30:48Z'
 categories:
   - Translation
 latestRelease: ''

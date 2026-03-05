@@ -5,11 +5,11 @@ shortDescription: Sulu bundle to manage security.txt files.
 license: MIT
 githubMaintainer: bitExpert
 githubLink: 'https://github.com/bitExpert/sulu-securitytxt-bundle'
-githubAvatar: ''
-githubStars: 0
-totalDownloads: 623
-targetSuluVersion: ''
-lastRepositoryUpdate: '1970-01-01T00:00:00.000Z'
+githubAvatar: 'https://avatars.githubusercontent.com/u/596450?v=4'
+githubStars: 8
+totalDownloads: 626
+targetSuluVersion: ^2.6
+lastRepositoryUpdate: '2025-02-10T05:09:20Z'
 categories:
   - Settings
 latestRelease: ''

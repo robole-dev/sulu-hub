@@ -7,11 +7,11 @@ shortDescription: >-
 license: MIT
 githubMaintainer: PERSPEQTIVE
 githubLink: 'https://github.com/perspeqtive/sulu-snippet-manager-bundle'
-githubAvatar: ''
-githubStars: 0
-totalDownloads: 856
-targetSuluVersion: ''
-lastRepositoryUpdate: '1970-01-01T00:00:00.000Z'
+githubAvatar: 'https://avatars.githubusercontent.com/u/146860012?v=4'
+githubStars: 9
+totalDownloads: 861
+targetSuluVersion: ^2.6
+lastRepositoryUpdate: '2025-09-24T08:30:53Z'
 categories:
   - Content
 latestRelease: ''

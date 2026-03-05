@@ -9,7 +9,7 @@ githubMaintainer: elbformat
 githubLink: 'https://github.com/elbformat/sulu-behat-bundle'
 githubAvatar: 'https://avatars.githubusercontent.com/u/6616093?v=4'
 githubStars: 2
-totalDownloads: 2068
+totalDownloads: 2070
 targetSuluVersion: ^2.4
 lastRepositoryUpdate: '2026-03-01T15:48:51Z'
 categories:

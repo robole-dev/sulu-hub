@@ -1,18 +1,20 @@
 ---
 title: MessengerMailerBundle
 packageName: fusonic/messenger-mailer-bundle
-shortDescription: Symfony bundle for sending emails with attachments asynchronously via Messenger by persisting attachment content safely.
+shortDescription: >-
+  Symfony bundle for sending emails with attachments asynchronously via
+  Messenger by persisting attachment content safely.
 license: MIT
 githubMaintainer: fusonic
-githubLink: 'https://github.com/fusonic/php-messenger-mailer-bundle'
-githubAvatar: ''
+githubLink: "https://github.com/fusonic/php-messenger-mailer-bundle"
+githubAvatar: "https://avatars.githubusercontent.com/u/809603?v=4"
 githubStars: 6
-totalDownloads: 0
-latestRelease: 2.4.0
-targetSuluVersion: ''
-lastRepositoryUpdate: '1970-01-01T00:00:00.000Z'
+totalDownloads: 46285
+targetSuluVersion: "^2.4"
+lastRepositoryUpdate: "2025-12-04T08:47:00Z"
 categories:
   - dx
+latestRelease: 2.4.0
 ---
 
 Symfony bundle for sending emails with attachments asynchronously via Messenger by persisting attachment content safely.
