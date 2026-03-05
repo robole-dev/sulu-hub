@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+:root {
+  --ui-container: calc(100vw - 32px);
+}
+
+@theme static {
+  --font-sans: "Public Sans", sans-serif;
+
+  --color-green-500: #52b6ca;
+  --color-green-600: #3f6e77;
+  --color-green-700: #112a46;
+}

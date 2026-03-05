@@ -1,0 +1,254 @@
+<template>
+  <UPageSection id="bundles">
+    <div class="flex gap-8">
+      <div class="w-64 flex-shrink-0 flex flex-col gap-4">
+        <UNavigationMenu
+          v-model="selectedCategory"
+          orientation="vertical"
+          :items="categoryItems"
+        />
+        <UNavigationMenu
+          v-model="selectedVersion"
+          orientation="vertical"
+          :items="versionItems"
+        />
+      </div>
+      <UPageBody class="flex-1 mt-0 space-y-6">
+        <div class="flex justify-end">
+          <div class="font-semibold text-xs/5 text-highlighted px-2.5 py-1.5">
+            <span class="truncate">Sort by:</span>
+          </div>
+          <UTabs
+            v-model="selectedSort"
+            :content="false"
+            :items="sortItems"
+            size="xs"
+          />
+        </div>
+        <UPageGrid
+          v-if="filteredBundles.length > 0"
+          cols="3"
+          class="gap-4 items-stretch"
+        >
+          <BundleItem
+            v-for="bundle in filteredBundles"
+            :key="bundle.path"
+            :bundle="bundle"
+            :to="getBundlePath(bundle.path)"
+          />
+        </UPageGrid>
+        <div v-else class="text-center text-muted">
+          <UIcon name="i-lucide-package-search" class="size-10" />
+          <p class="text-xl">No bundles found</p>
+        </div>
+      </UPageBody>
+    </div>
+  </UPageSection>
+</template>
+
+<script setup lang="ts">
+import type { TabsItem } from "@nuxt/ui";
+import type { BundleCollectionItem, NavigationMenuItem } from "@nuxt/content";
+
+const props = defineProps<{
+  bundles: BundleCollectionItem[] | undefined;
+}>();
+
+const bundles = computed(() => props.bundles ?? []);
+
+const selectedSort = ref("githubStars");
+
+const sortItems = ref<TabsItem[]>([
+  {
+    label: "Stars",
+    value: "githubStars",
+  },
+  {
+    label: "Downloads",
+    value: "totalDownloads",
+  },
+]);
+
+const selectedVersion = ref("All");
+
+const versionItems = computed<NavigationMenuItem[]>(() => [
+  {
+    label: "Supported Sulu version:",
+    type: "label",
+  },
+  {
+    label: "All",
+    onClick: () => {
+      selectedVersion.value = "All";
+    },
+    ...(selectedVersion.value === "All" && { active: true }),
+  },
+  {
+    label: "2.x",
+    onClick: () => {
+      selectedVersion.value = "2.x";
+    },
+    ...(selectedVersion.value === "2.x" && { active: true }),
+  },
+  {
+    label: "3.x",
+    onClick: () => {
+      selectedVersion.value = "3.x";
+    },
+    ...(selectedVersion.value === "3.x" && { active: true }),
+  },
+]);
+
+const selectedCategory = ref("All");
+
+const categoryItems = computed(() => {
+  return [
+    {
+      label: "Filter by category:",
+      type: "label",
+    },
+    {
+      label: "All",
+      onClick: () => {
+        selectedCategory.value = "All";
+      },
+      tooltip: "All categories",
+      ...(selectedCategory.value === "All" && { active: true }),
+      // Add <USeparator /> below
+    },
+    {
+      label: "Blog",
+      icon: "i-lucide-newspaper",
+      onClick: () => {
+        selectedCategory.value = "blog";
+      },
+      ...(selectedCategory.value === "blog" && { active: true }),
+    },
+    {
+      label: "Content",
+      icon: "i-lucide-file-text",
+      onClick: () => {
+        selectedCategory.value = "content";
+      },
+      ...(selectedCategory.value === "content" && { active: true }),
+    },
+    {
+      label: "Media",
+      icon: "i-lucide-image",
+      onClick: () => {
+        selectedCategory.value = "media";
+      },
+      ...(selectedCategory.value === "media" && { active: true }),
+    },
+    {
+      label: "Form",
+      icon: "i-lucide-form-input",
+      onClick: () => {
+        selectedCategory.value = "form";
+      },
+      ...(selectedCategory.value === "form" && { active: true }),
+    },
+    {
+      label: "Translation",
+      icon: "i-lucide-languages",
+      onClick: () => {
+        selectedCategory.value = "translation";
+      },
+      ...(selectedCategory.value === "translation" && { active: true }),
+    },
+    {
+      label: "SEO",
+      icon: "i-lucide-search",
+      onClick: () => {
+        selectedCategory.value = "seo";
+      },
+      ...(selectedCategory.value === "seo" && { active: true }),
+    },
+    {
+      label: "Events",
+      icon: "i-lucide-calendar-clock",
+      onClick: () => {
+        selectedCategory.value = "events";
+      },
+      ...(selectedCategory.value === "events" && { active: true }),
+    },
+    {
+      label: "Settings",
+      icon: "i-lucide-settings-2",
+      onClick: () => {
+        selectedCategory.value = "settings";
+      },
+      ...(selectedCategory.value === "settings" && { active: true }),
+    },
+    {
+      label: "DX",
+      icon: "i-lucide-code-2",
+      onClick: () => {
+        selectedCategory.value = "dx";
+      },
+      ...(selectedCategory.value === "dx" && { active: true }),
+    },
+  ];
+});
+
+const filteredBundles = computed(() => {
+  if (!bundles.value) return [];
+
+  let result = bundles.value.slice();
+
+  if (selectedCategory.value !== "All") {
+    result = result.filter((bundle) => {
+      const bundleCategories = bundle.categories || [];
+      return bundleCategories
+        .map((cat: string) => cat.toLowerCase())
+        .includes(selectedCategory.value.toLowerCase());
+    });
+  }
+
+  if (selectedVersion.value !== "All") {
+    result = result.filter((bundle) => {
+      const raw = (bundle.targetSuluVersion || "").replace(/^[^\d]*/, "");
+
+      if (!raw) return false;
+
+      if (selectedVersion.value === "2.x") {
+        return raw.startsWith("2.");
+      }
+
+      if (selectedVersion.value === "3.x") {
+        return raw.startsWith("3.");
+      }
+
+      return true;
+    });
+  }
+
+  result.sort((a, b) => {
+    switch (selectedSort.value) {
+      case "githubStars":
+        return (b.githubStars || 0) - (a.githubStars || 0);
+      case "totalDownloads":
+        return (b.totalDownloads || 0) - (a.totalDownloads || 0);
+      case "lastRepositoryUpdate":
+      default: {
+        const aTime = a.lastRepositoryUpdate
+          ? new Date(a.lastRepositoryUpdate).getTime()
+          : 0;
+        const bTime = b.lastRepositoryUpdate
+          ? new Date(b.lastRepositoryUpdate).getTime()
+          : 0;
+
+        return bTime - aTime;
+      }
+    }
+  });
+
+  return result;
+});
+
+const getBundlePath = (path: string) => {
+  // Extract slug from path like "/bundles/ai-translate-bundle"
+  const slug = path.split("/").pop() || "";
+  return `/${slug}`;
+};
+</script>
