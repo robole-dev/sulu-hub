@@ -1,4 +1,6 @@
 <script setup>
+import IconSulu from './components/IconSulu.vue'
+
 const route = useRoute()
 
 useHead({
@@ -11,6 +13,8 @@ useHead({
 
 const title = 'SuluHub'
 const description = 'A collection of community bundles for Sulu CMS.'
+
+const config = useRuntimeConfig()
 
 useSeoMeta({
   title,
@@ -40,7 +44,7 @@ useSeoMeta({
         <UColorModeButton />
 
         <UButton
-          to="https://github.com/robole-dev/sulu-hub"
+          :to="config.public.repositoryUrl"
           target="_blank"
           icon="i-simple-icons-github"
           aria-label="GitHub"
@@ -54,12 +58,12 @@ useSeoMeta({
       <NuxtPage />
     </UMain>
 
-    <USeparator icon="i-simple-icons-nuxtdotjs" />
+    <USeparator :icon="IconSulu" />
 
     <UFooter>
       <template #left>
         <p class="text-sm text-muted">
-          Built with Nuxt UI • © {{ new Date().getFullYear() }}
+          FriendsOfSulu © {{ new Date().getFullYear() }}
         </p>
       </template>
     </UFooter>

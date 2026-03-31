@@ -3,15 +3,11 @@
 Sulu Hub is a small Nuxt application that lists and showcases community bundles for the [Sulu](https://sulu.io) CMS.  
 Bundle metadata is stored as markdown files and automatically enriched (GitHub stars, downloads, Sulu version, etc.) whenever the app starts.
 
----
-
 ## Goals
 
 - **Discoverability**: Provide a browsable, searchable overview of Sulu bundles in one place.
 - **Up‑to‑date metadata**: Keep stars, downloads and repository activity fresh via an automatic updater.
 - **Simple contribution model**: Make it easy to add new bundles via a single markdown file per bundle.
-
----
 
 ## Tech Stack
 
@@ -21,17 +17,15 @@ Bundle metadata is stored as markdown files and automatically enriched (GitHub s
 - **Tailwind CSS 4** (`tailwindcss`) for additional utility styling.
 - **Custom Nuxt module** `bundles-metadata-updater`  for keeping bundle metadata in sync with GitHub and Packagist.
 
----
-
 ## Setup
 
-Make sure to install the dependencies:
+Install the dependencies:
 
 ```bash
 npm install
 ```
 
----
+Copy `.env.example` to `.env`. 
 
 ## Development
 
@@ -45,8 +39,6 @@ This will:
 
 - Launch the Nuxt dev server.
 - Run the `bundles-metadata-updater` module once on startup to refresh bundle metadata if the last update is older than its configured max age (24h by default).
-
----
 
 ## Production
 
@@ -103,3 +95,9 @@ If you prefer to do it by hand:
 2. **Add frontmatter** matching the schema in `content.config.ts`
 
 3. **Run the app** (`npm run dev` or `npm run generate`) so that the metadata updater can enrich the new entry.
+
+### Contributions / Suggest a bundle
+
+We are looking forward to reviewing your contributions! Feel free to submit a new issue or pull request.
+
+This project was initiated by the team of [https://robole.de](robole).

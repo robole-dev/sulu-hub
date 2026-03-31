@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   ],
 
   devtools: {
-    enabled: false
+    enabled: true
   },
 
   css: ['~/assets/css/main.css'],
@@ -15,6 +15,12 @@ export default defineNuxtConfig({
   routeRules: {
     '/': { prerender: true },
     '/bundles': { redirect: '/' }
+  },
+
+  runtimeConfig: {
+    public: {
+      repositoryUrl: ''
+    }
   },
 
   compatibilityDate: '2025-01-15',

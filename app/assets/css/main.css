@@ -19,3 +19,7 @@
 
   --ui-primary: var(--color-green-500);
 }
+
+button {
+  cursor: pointer;
+}

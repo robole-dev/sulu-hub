@@ -32,7 +32,7 @@ While we aim to provide a useful collection of community bundles, we cannot guar
         :links="[
           {
             label: 'Suggest a bundle',
-            to: 'https://github.com/robole-dev/sulu-hub',
+            to: `${config.public.repositoryUrl}/issues/new`,
             target: '_blank',
             icon: 'i-lucide-plus',
             color: 'neutral',
@@ -55,4 +55,6 @@ While we aim to provide a useful collection of community bundles, we cannot guar
 const { data: bundles } = await useAsyncData(() =>
   queryCollection('bundle').all()
 )
+
+const config = useRuntimeConfig()
 </script>

@@ -10,12 +10,16 @@
         v-if="bundle.targetSuluVersion"
         #header
       >
-        <UBadge
-          size="xs"
-          variant="outline"
-        >
-          Sulu {{ bundle.targetSuluVersion }}
-        </UBadge>
+        <div class="flex flex-wrap gap-2">
+          <UBadge
+            v-for="version in suluVersionBadges"
+            :key="version"
+            size="sm"
+            variant="soft"
+          >
+            {{ version }}
+          </UBadge>
+        </div>
       </template>
 
       <template #footer>
@@ -65,4 +69,22 @@ const title = computed(() =>
     ? props.bundle.title.replace('Sulu', '')
     : props.bundle.title
 )
+
+const suluVersionBadges = computed(() => {
+  const target = props.bundle.targetSuluVersion
+
+  if (!target) return []
+
+  const versions: string[] = []
+
+  if (target.includes('2.')) {
+    versions.push('2.x')
+  }
+
+  if (target.includes('3.')) {
+    versions.push('3.x')
+  }
+
+  return versions
+})
 </script>

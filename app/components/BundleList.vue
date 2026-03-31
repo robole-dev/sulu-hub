@@ -100,6 +100,10 @@ const sortItems = ref<TabsItem[]>([
   {
     label: 'Downloads',
     value: 'totalDownloads'
+  },
+  {
+    label: 'Last update',
+    value: 'lastRepositoryUpdate'
   }
 ])
 
