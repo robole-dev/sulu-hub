@@ -46,7 +46,27 @@ interface ComposerMeta {
   targetSuluVersion?: string
 }
 
-type FrontMatter = Record<string, any>
+interface GithubRepoResponse {
+  stargazers_count?: number
+  owner?: {
+    avatar_url?: string
+  }
+  default_branch?: string
+  pushed_at?: string
+  updated_at?: string
+}
+
+interface ComposerJson {
+  require?: Record<string, unknown>
+}
+
+interface PackagistStatsResponse {
+  downloads?: {
+    total?: number
+  }
+}
+
+type FrontMatter = Record<string, unknown>
 
 const ONE_DAY_MS = 24 * 60 * 60 * 1000
 
@@ -131,7 +151,7 @@ async function isTimestampFresh(
     }
 
     return now.getTime() - lastRun.getTime() < maxAgeMs
-  } catch (error: any) {
+  } catch (error) {
     if (error && (error as NodeJS.ErrnoException).code === 'ENOENT') {
       return false
     }
@@ -241,7 +261,7 @@ async function fetchGithubMeta(
     return {}
   }
 
-  const repoData = repoResponse.data as any
+  const repoData = repoResponse.data as GithubRepoResponse
 
   const meta: GithubMeta = {
     stars:
@@ -288,7 +308,7 @@ async function fetchComposerMeta(
     return {}
   }
 
-  const repoData = repoResponse.data as any
+  const repoData = repoResponse.data as GithubRepoResponse
   const defaultBranch
     = typeof repoData.default_branch === 'string'
       ? repoData.default_branch
@@ -302,8 +322,8 @@ async function fetchComposerMeta(
   }
 
   try {
-    const composer = JSON.parse(composerResponse.data) as any
-    const requireField = composer.require as Record<string, string> | undefined
+    const composer = JSON.parse(composerResponse.data) as ComposerJson
+    const requireField = composer.require
     if (!requireField) {
       return {}
     }
@@ -345,7 +365,7 @@ async function getPackageDownloadStats(
     return {}
   }
 
-  const data = response.data as any
+  const data = response.data as PackagistStatsResponse
   const downloads = data.downloads
 
   if (!downloads || typeof downloads.total !== 'number') {
